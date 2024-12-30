@@ -1,0 +1,692 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(234,175,255,1) 0%, rgba(151,237,255,1) 100%);
+}
+
+.button-container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* 6 buttons per row */
+    gap: 10px; /* Space between buttons */
+    padding: 20px; /* Padding around the container */
+}
+
+.button {
+    --white: #ffe7ff;
+    --purple-100: #f4b1fd;
+    --purple-200: #d190ff;
+    --purple-300: #c389f2;
+    --purple-400: #8e26e2;
+    --purple-500: #5e2b83;
+    --radius: 12px; /* Reduced radius for smaller buttons */
+
+    border-radius: var(--radius);
+    outline: none;
+    cursor: pointer;
+    font-size: 16px; /* Reduced font size */
+    font-family: Arial;
+    background: transparent;
+    letter-spacing: -1px;
+    border:
+            0;
+    position: relative;
+    width: 120px; /* Reduced width */
+    height: 50px; /* Reduced height */
+    transform: rotate(353deg) skewX(4deg);
+}
+
+.bg {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    filter: blur(1px);
+}
+.bg::before,
+.bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: calc(var(--radius) * 1.1);
+    background: var(--purple-500);
+}
+.bg::before {
+    filter: blur(5px);
+    transition: all 0.3s ease;
+    box-shadow:
+            -7px 6px 0 0 rgb(115 75 155 / 40%),
+            -14px 12px 0 0 rgb(115 75 155 / 30%),
+            -21px 18px 4px 0 rgb(115 75 155 / 25%),
+            -28px 24px 8px 0 rgb(115 75 155 / 15%),
+            -35px 30px 12px 0 rgb(115 75 155 / 12%),
+            -42px 36px 16px 0 rgb(115 75 155 / 8%),
+            -56px 42px 20px 0 rgb(115 75 155 / 5%);
+}
+
+.wrap {
+    border-radius: inherit;
+    overflow: hidden;
+    height: 100%;
+    transform: translate(6px, -6px);
+    padding: 3px;
+    background: linear-gradient(
+            to bottom,
+            var(--purple-100) 0%,
+            var(--purple-400) 100%
+    );
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.outline {
+    position: absolute;
+    overflow: hidden;
+    inset: 0;
+    opacity: 0;
+    outline: none;
+    border-radius: inherit;
+    transition: all 0.4s ease;
+}
+.outline::before {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    width: 120px;
+    height: 300px;
+    margin: auto;
+    background: linear-gradient(
+            to right,
+            transparent 0%,
+            white 50%,
+            transparent 100%
+    );
+    animation: spin 3s linear infinite;
+    animation-play-state: paused;
+}
+
+.content {
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    position: relative;
+    height: 100%;
+    gap: 8px; /* Reduced gap */
+    border-radius: calc(var(--radius) * 0.85);
+    font-weight: 600;
+    transition: all 0.3s ease;
+    background: linear-gradient(
+            to bottom,
+            var(--purple-300) 0%,
+            var(--purple-400) 100%
+    );
+    box-shadow:
+            inset -2px 12px 11px -5px var(--purple-200),
+            inset 1px -3px 11px 0px rgb(0 0 0 / 35%);
+}
+.content::before {
+    content: "";
+    inset: 0;
+    position: absolute;
+    z-index: 10;
+    width: 80%;
+    top: 45%;
+    bottom: 35%;
+    opacity: 0.7;
+    margin: auto;
+    background: linear-gradient(to bottom, transparent, var(--purple-400));
+    filter: brightness(1.3) blur(5px);
+}
+
+.char {
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.char span {
+    display: block;
+    color: transparent;
+    position: relative;
+}
+.char span:nth-child(5) {
+    margin-left: 5px;
+}
+.char.state-1 span:nth-child(5) {
+    margin-right: -3px;
+}
+.char.state-1 span {
+    animation: charAppear 1.2s ease backwards calc(var(--i) * 0.03s);
+}
+.char.state-1 span::before,
+.char span::after {
+    content: attr(data-label);
+    position: absolute;
+    color: var(--white);
+    text-shadow: -1px 1px 2px var(--purple-500);
+    left: 0;
+}
+.char span::before {
+    opacity: 0;
+    transform: translateY(-100%);
+}
+.char.state-2 {
+    position
+    : absolute;
+    left: 80px;
+}
+.char.state-2 span::after {
+    opacity: 1;
+}
+
+.icon {
+    animation: resetArrow 0.8s cubic-bezier(0.7, -0.5, 0.3, 1.2) forwards;
+    z-index: 10;
+}
+.icon div,
+.icon div::before,
+.icon div::after {
+    height: 3px;
+    border-radius: 1px;
+    background-color: var(--white);
+}
+.icon div::before,
+.icon div::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    transform-origin: center right;
+    width: 14px;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+.icon div {
+    position: relative;
+    width: 24px;
+    box-shadow: -2px 2px 5px var(--purple-400);
+    transform: scale(0.9);
+    background: linear-gradient(to bottom, var(--white), var(--purple-100));
+    animation: swingArrow 1s ease-in-out infinite;
+    animation-play-state: paused;
+}
+.icon div::before {
+    transform: rotate(44deg);
+    top: 1px;
+    box-shadow: 1px -2px 3px -1px var(--purple-400);
+    animation: rotateArrowLine 1s linear infinite;
+    animation-play-state: paused;
+}
+.icon div::after {
+    bottom: 1px;
+    transform: rotate(316deg);
+    box-shadow: -2px 2px 3px 0 var(--purple-400);
+    background: linear-gradient(200deg, var(--white), var(--purple-100));
+    animation: rotateArrowLine2 1s linear infinite;
+    animation-play-state: paused;
+}
+
+.path {
+    position: absolute;
+    z-index: 12;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    stroke-dasharray: 150 480;
+    stroke-dashoffset: 150;
+    pointer-events: none;
+}
+
+.splash {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    stroke-dasharray: 60 60;
+    stroke-dashoffset: 60;
+    transform: translate(-17%, -31%);
+    stroke: var(--purple-300);
+}
+
+/** STATES */
+
+.button:hover .words {
+    opacity: 1;
+}
+.button:hover .words span {
+    animation-play-state: running;
+}
+
+.button:hover .char.state-1 span::before {
+    animation: charAppear 0.7s ease calc(var(--i) * 0.03s);
+}
+
+.button:hover .char.state-1 span::after {
+    opacity: 1;
+    animation: charDisappear 0.7s ease calc(var(--i) * 0.03s);
+}
+
+.button:hover .wrap {
+    transform: translate(8px, -8px);
+}
+
+.button:hover .outline {
+    opacity: 1;
+}
+
+.button:hover .outline::before,
+.button:hover .icon div::before,
+.button:hover .icon div::after,
+.button:hover .icon div {
+    animation-play-state: running;
+}
+
+.button:active .bg::before {
+    filter: blur(5px);
+    opacity: 0.7;
+    box-shadow:
+            -7px 6px 0 0 rgb(115 75 155 / 40%),
+            -14px 12px 0 0 rgb(115 75 155 / 25%),
+            -21px 18px 4px 0 rgb(115 75 155 / 15%);
+}
+.button:active .content {
+    box-shadow:
+            inset -1px 12px 8px -5px rgba(71, 0, 137, 0.4),
+            inset 0px -3px 8px 0px var(--purple-200);
+}
+
+.button:active .words,
+.button:active .outline {
+    opacity: 0;
+}
+
+.button:active .wrap {
+    transform: translate(3px, -3px);
+}
+
+.button:active .splash {
+    animation: splash 0.8s cubic-bezier(0.3, 0, 0, 1) forwards 0.05s;
+}
+
+.button:focus .path {
+    animation: path 1.6s ease forwards 0.2s;
+}
+
+.button:focus .icon {
+    animation: arrow 1s cubic-bezier(0.7, -0.5, 0.3, 1.5) forwards;
+}
+
+.char.state-2 span::after,.button:focus .char.state-1 span {
+    animation: charDisappear 0.5s ease forwards calc(var(--i) * 0.03s);
+}
+
+.button:focus .char.state-2 span::after {
+    animation: charAppear 1s ease backwards calc(var(--i) * 0.03s);
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes charAppear {
+    0% {
+        transform: translateY(50%);
+        opacity: 0;
+        filter: blur(20px);
+    }
+    20% {
+        transform: translateY(70%);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(-15%);
+        opacity: 1;
+        filter: blur(0);
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes charDisappear {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-70%);
+        opacity: 0;
+        filter: blur(3px);
+    }
+}
+
+@keyframes arrow {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        transform: translateX(60px);
+        opacity: 0;
+    }
+    51% {
+        transform: translateX(-200px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(-128px);
+        opacity: 1;
+    }
+}
+
+@keyframes swingArrow {
+    50% {
+        transform: translateX(5px) scale(0.9);
+    }
+}
+
+@keyframes rotateArrowLine {
+    50% {
+        transform: rotate(30deg);
+    }
+    80% {
+        transform: rotate(55deg);
+    }
+}
+
+@keyframes rotateArrowLine2 {
+    50% {
+        transform: rotate(330deg);
+    }
+    80% {
+        transform: rotate(300deg);
+    }
+}
+
+@keyframes resetArrow {
+    0% {
+        transform: translateX(-128px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes path {
+    from {
+        stroke: white;
+    }
+    to {
+        stroke-dashoffset: -480;
+        stroke: #f9c6fe;
+    }
+}
+
+@keyframes splash {
+    to {
+        stroke-dasharray: 2 60;
+        stroke-dashoffset: -60;
+    }
+}
+/* From Uiverse.io by Fcodingx */
+.card {
+    width: 190px;
+    height: 120px;
+    padding: 0.5rem;
+    background: rgba(198, 198, 198, 0.34);
+    border-radius: 8px;
+    backdrop-filter: blur(5px);
+    border-bottom: 3px solid rgba(255, 255, 255, 0.440);
+    border-left: 2px  rgba(255, 255, 255, 0.545) outset;
+    box-shadow: -40px 50px 30px rgba(0, 0, 0, 0.280);
+
+    transition: .4s;
+    overflow: hidden;
+    color: white;
+
+}
+
+.card:hover {
+    height: 254px;
+    transform: skew(0deg);
+}
+
+.align {
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-self: flex-start;
+}
+
+.red {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ff605c;
+    box-shadow: -5px 5px 5px rgba(0, 0, 0, 0.280);
+}
+
+.yellow {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ffbd44;
+    box-shadow: -5px 5px 5px rgba(0, 0, 0, 0.280);
+}
+
+.green {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #00ca4e;
+    box-shadow: -5px 5px 5px rgba(0, 0, 0, 0.280);
+}
+
+.card h1 {
+    text-align: center;
+    margin: 1.3rem;
+    color: rgb(218, 244, 237);
+    text-shadow: -10px 5px 10px rgba(0, 0, 0, 0.573);
+}
+/* Add this to your existing CSS */
+
+.fade-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8); /* Dark overlay */
+    opacity: 0; /* Start invisible */
+    transition: opacity 0.5s ease; /* Transition for fade effect */
+    z-index: 999; /* Ensure it's above other content */
+    pointer-events: none; /* Prevent interaction */
+}
+
+.fade-overlay.active {
+    opacity: 1; /* Fade in */
+    pointer-events: auto; /* Allow interaction */
+}
+.fade-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0); /* Initially fully transparent */
+    transition: background 0.5s ease; /* Smooth fade-out transition */
+    z-index: 9999;
+    pointer-events: none; /* Prevent interaction */
+}
+
+.fade-overlay.active {
+    background: rgba(0, 0, 0, 0.5); /* Fade to a darker overlay */
+}
+
+
+.loader {
+    --path: #2f3545;
+    --dot: #5628ee;
+    --duration: 3s;
+    width: 44px;
+    height: 44px;
+    position: relative;
+}
+
+.loader:before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    position: absolute;
+    display: block;
+    background: var(--dot);
+    top: 37px;
+    left: 19px;
+    transform: translate(-18px, -18px);
+    animation: dotRect var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86)
+    infinite;
+}
+
+.loader svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.loader svg rect,
+.loader svg polygon,
+.loader svg circle {
+    fill: none;
+    stroke: var(--path);
+    stroke-width: 10px;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+}
+
+.loader svg polygon {
+    stroke-dasharray: 145 76 145 76;
+    stroke-dashoffset: 0;
+    animation: pathTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86)
+    infinite;
+}
+
+.loader svg rect {
+    stroke-dasharray: 192 64 192 64;
+    stroke-dashoffset: 0;
+    animation: pathRect 3s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+}
+
+.loader svg circle {
+    stroke-dasharray: 150 50 150 50;
+    stroke-dashoffset: 75;
+    animation: pathCircle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86)
+    infinite;
+}
+
+.loader.triangle {
+    width: 48px;
+}
+
+.loader.triangle:before {
+    left: 21px;
+    transform: translate(-10px, -18px);
+    animation: dotTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86)
+    infinite;
+}
+
+@keyframes pathTriangle {
+    33% {
+        stroke-dashoffset: 74;
+    }
+
+    66% {
+        stroke-dashoffset: 147;
+    }
+
+    100% {
+        stroke-dashoffset: 221;
+    }
+}
+
+@keyframes dotTriangle {
+    33% {
+        transform: translate(0, 0);
+    }
+
+    66% {
+        transform: translate(10px, -18px);
+    }
+
+    100% {
+        transform: translate(-10px, -18px);
+    }
+}
+
+@keyframes pathRect {
+    25% {
+        stroke-dashoffset: 64;
+    }
+
+    50% {
+        stroke-dashoffset: 128;
+    }
+
+    75% {
+        stroke-dashoffset: 192;
+    }
+
+    100% {
+        stroke-dashoffset: 256;
+    }
+}
+
+@keyframes dotRect {
+    25% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(18px, -18px);
+    }
+
+    75% {
+        transform: translate(0, -36px);
+    }
+
+    100% {
+        transform: translate(-18px, -18px);
+    }
+}
+
+@keyframes pathCircle {
+    25% {
+        stroke-dashoffset: 125;
+    }
+
+    50% {
+        stroke-dashoffset: 175;
+    }
+
+    75% {
+        stroke-dashoffset: 225;
+    }
+
+    100% {
+        stroke-dashoffset: 275;
+    }
+}
+
+.loader {
+    display: inline-block;
+    margin: 0 16px;
+}

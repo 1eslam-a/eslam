@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="../style2.css">
+</head>
+<body class="container3" style="margin-top: 118px">
+<div class="card">
+  <div class="header">
+    <div class="top">
+      <div class="circle">
+        <span class="red circle2"></span>
+      </div>
+      <div class="circle">
+        <span class="yellow circle2"></span>
+      </div>
+      <div class="circle">
+        <span class="green circle2"></span>
+      </div>
+      <div class="title">
+        <p id="title2">style.css</p>
+      </div>
+    </div>
+  </div>
+  <div class="code-container">
+    <textarea class="area" id="code" name="code" readonly="">
+template <class T>
+void Chain<T>::Max_Second() const
+{
+    if (!head || !head->Next)
+    {
+        cout << "List doesn't have enough elements!" << endl;
+        return;
+    }
+    int max1 = INT_MIN, max2 = INT_MIN;
+    Node<T> *current = head;
+    while (current)
+    {
+        if (current->value > max1)
+        {
+            max2 = max1;
+            max1 = current->value;
+        }
+        else if (current->value > max2 && current->value != max1)
+        {
+            max2 = current->value;
+        }
+        current = current->Next;
+    }
+    cout << "Max1: " << max1 << ", Max2: " << max2 << endl;
+}
+    </textarea
+    >
+  </div>
+</div>
+
+<div class="card">
+  <div class="icon">
+  </div>
+
+  <div class="content">
+    <h3 >Second max</h3>
+    <p>
+        the Max_Second function iterates through each node in the Chain, keeping track of the maximum and second maximum values encountered. If the chain has fewer than two elements, it prints a message indicating that there are not enough elements to determine the maximums. If there are enough elements, it prints the maximum and second maximum values    </p>
+  </div>
+</div>
+
+
+</body>
+</html>

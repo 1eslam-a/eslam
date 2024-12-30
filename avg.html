@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        body{
+            background: rgb(254,254,254);
+            background: linear-gradient(90deg, rgba(254,254,254,1) 0%, rgba(98,98,98,1) 0%, rgba(22,22,22,1) 100%);
+        }
+    </style>
+</head>
+<body>
+<div class="card" id="Draw"> <!-- Added id here -->
+    <div class="align">
+        <span class="red"></span>
+        <span class="yellow"></span>
+        <span class="green"></span>
+    </div>
+
+    <h1>Draw code</h1>
+    <p>
+        This will make the sudo code for the double linked list Detailed explanation and method of drawing
+    </p>
+</div>
+<div class="card" id="codeCard">
+    <div class="align">
+        <span class="red"></span>
+        <span class="yellow"></span>
+        <span class="green"></span>
+    </div>
+
+    <h1>Code</h1>
+    <p>
+        The code and its explanation line by line with boring details until you master writing it
+    </p>
+</div>
+<div class="card" id="sudoCard"> <!-- Added id here -->
+    <div class="align">
+        <span class="red"></span>
+        <span class="yellow"></span>
+        <span class="green"></span>
+    </div>
+
+    <h1>Sudo Code</h1>
+    <p>
+        This will make the sudo code for the double linked list
+    </p>
+</div>
+<div class="fade-overlay"></div>
+
+<script>
+    document.getElementById('sudoCard').addEventListener('click', function () {
+        window.location.href = "../sudo code/aver.html"; // Adjust the path if necessary
+    });
+    document.getElementById('codeCard').addEventListener('click', function() {
+        window.location.href = "../code/aver.html"; // Adjust the path if necessary
+    });
+    document.getElementById('Draw').addEventListener('click', function() {
+        window.location.href = "../Draw/dra-avg.html"; // Adjust the path if necessary
+    });
+</script>
+
+<script src="../index.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="main-page.css">
+</head>
+<body>
+<div class="card"></div>
+<div class="button-container">
+    <button class="button" id="theButtonOne">Doubly Linked List</button>
+    <button class="button" id="theButtonTwo">The Developers</button>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const buttons = {
+            "theButtonOne":"DoublyLinkdeList.html",
+            "theButtonTwo":"projects-names.html"
+        };
+        Object.keys(buttons).forEach(buttonId => {
+            const button = document.getElementById(buttonId);
+            if (button) { // Check if the button exists in the DOM
+                button.addEventListener("click", (event) => {
+                    event.preventDefault(); // Prevent any default action
+                    const pagePath = buttons[buttonId]; // Get the mapped path
+
+                    // Redirect to the page (no fade effect for simplicity)
+                    window.location.href = pagePath;
+                });
+            } else {
+                console.warn(`Button with ID "${buttonId}" not found.`);
+            }
+        });
+    });
+</script>
+</body>
+</html>

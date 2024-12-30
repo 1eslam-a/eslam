@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="../style2.css">
+</head>
+<body class="container3" style="margin-top: 118px">
+<div class="card">
+  <div class="header">
+    <div class="top">
+      <div class="circle">
+        <span class="red circle2"></span>
+      </div>
+      <div class="circle">
+        <span class="yellow circle2"></span>
+      </div>
+      <div class="circle">
+        <span class="green circle2"></span>
+      </div>
+      <div class="title">
+        <p id="title2">style.css</p>
+      </div>
+    </div>
+  </div>
+  <div class="code-container">
+    <textarea class="area" id="code" name="code" readonly="">
+template <class T>
+bool Chain<T>::Sorted() const
+{
+    if (!head || !head->Next)
+        return true;
+    Node<T> *current = head;
+    while (current->Next)
+    {
+        if (current->value > current->Next->value)
+            return false;
+        current = current->Next;
+    }
+    return true;
+}
+    </textarea
+    >
+  </div>
+</div>
+
+<div class="card">
+  <div class="icon">
+  </div>
+
+  <div class="content">
+    <h3 >sort</h3>
+    <p>
+        the Sorted function iterates through each node in the Chain, checking if the values are in non-decreasing order. If the chain is empty or contains only one element, it is considered sorted. If any pair of adjacent nodes is found to be out of order, the function returns false. If the entire chain is traversed without finding any such pairs, it returns true.    </p>
+  </div>
+</div>
+
+
+</body>
+</html>
